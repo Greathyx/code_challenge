@@ -1,32 +1,63 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <v-app>
+    <v-app-bar
+        app
+        clipped-left
+        clipped-right
+        dark
+    >
+      <v-avatar size="36" style="margin-right: 14px">
+        <img
+            src="../public/viaplay.png"
+            alt="viaplay"
+        >
+      </v-avatar>
+      <v-toolbar-title style="overflow: visible; font-weight: bold; margin-right: 10px">
+        Viaplay Lunchbot
+      </v-toolbar-title>
+      <v-tabs id="tab" color="white">
+        <v-tabs-slider color="yellow"></v-tabs-slider>
+        <v-tab>
+          <router-link to="/" class="link">Home</router-link>
+        </v-tab>
+      </v-tabs>
+    </v-app-bar>
+
     <router-view/>
-  </div>
+
+  </v-app>
 </template>
 
+<script>
+
+export default {
+  name: 'App',
+
+  components: {},
+
+  data: () => ({
+    //
+  }),
+
+  created() {
+    // this.$vuetify.theme.dark = true
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+#tab a {
+  text-decoration: none;
+  color: white;
 }
-
-#nav {
-  padding: 30px;
+#tab a.router-link-exact-active {
+  text-decoration: none;
+  color: white;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.link {
+  height: 64px;
+  align-items: center;
+  display: flex;
+  font-size: 0.875rem;
 }
 </style>
