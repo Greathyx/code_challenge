@@ -16,9 +16,40 @@
     </v-parallax>
 
     <div class="my-container">
-      <v-row style="margin: 0px 60px 40px 60px">
+      <v-row style="margin: 20px 60px 40px 60px">
+        <v-col class="d-flex" cols="12" style="display: flex; flex-direction: row; align-items: center">
+          <h3 class="font-weight-medium">Sort by: </h3>
+
+          <v-btn
+              small
+              :outlined="this.sort_type !== 'original'"
+              color="secondary"
+              class="ma-2 white--text"
+              @click="sortRestaurants('original')"
+          >
+            Original
+            <v-icon right dark>
+              mdi-sort-variant
+            </v-icon>
+          </v-btn>
+
+          <v-btn
+              small
+              :outlined = "this.sort_type === 'original'"
+              color="secondary"
+              class="ma-2 white--text"
+              @click="sortRestaurants('rating')"
+          >
+            Rating
+            <v-icon right dark>
+              {{this.rating_type === 'asc' ? 'mdi-sort-ascending' : 'mdi-sort-descending'}}
+            </v-icon>
+          </v-btn>
+        </v-col>
+
         <v-col v-for="item in restaurantData.slice((page - 1) * 12, page * 12)"
-               v-bind:key="item.id" cols="3" md="3" sm="6" style="height: 440px">
+               v-bind:key="item.id" cols="3" md="3" sm="6"
+               style="height: 440px; margin-top: -30px">
           <v-card
               class="mx-auto my-12"
               max-width="374"
@@ -52,7 +83,7 @@
 
       <v-pagination
           v-model="page"
-          :length=pageLength
+          :length="this.pageLength || 4"
           :total-visible="7"
           style="margin-bottom: 30px"
       ></v-pagination>
@@ -64,6 +95,7 @@
 // @ is an alias to /src
 import RestaurantService from "@/service/RestaurantService";
 
+
 export default {
   name: 'Home',
 
@@ -72,17 +104,54 @@ export default {
   created() {
     Promise.resolve(RestaurantService.getRestaurantList()).then((result) => {
       this.restaurantData = result;
-      // calculate page length
-      this.pageLength = this.restaurantData.length % 12 === 0 ?
-          this.restaurantData.length / 12 : this.restaurantData.length / 12 + 1
+      // calculate the page length
+      this.pageLength = this.restaurantData.size % 12 === 0 ?
+          this.restaurantData.size / 12 : this.restaurantData.size / 12 + 1
     })
   },
 
   data: () => ({
     page: 1,
-    restaurantData: {},
-    pageLength: 4  // default page length
+    restaurantData: [],
+    pageLength: 4,  // default page length
+    sort_type: 'original',
+    rating_type: 'asc',
   }),
+
+  methods: {
+    sortRestaurants(new_sort_type) {
+      if (new_sort_type === 'rating') {
+        if (this.sort_type !== 'original')
+          this.rating_type = (this.rating_type === 'asc' ? 'desc' : 'asc');
+      }
+      this.sort_type = new_sort_type;
+
+      switch (this.sort_type) {
+        case 'original':
+          Promise.resolve(RestaurantService.getRestaurantList()).then((result) => {
+            this.restaurantData = result;
+          })
+          break;
+        case 'rating':
+          if (this.rating_type === 'asc') {
+            this.restaurantData.sort(function (a, b) {
+              return b.rating - a.rating;
+            })
+          } else {
+            this.restaurantData.sort(function (a, b) {
+              return a.rating - b.rating;
+            })
+          }
+          break;
+        default:
+          break;
+      }
+
+      // update the page length
+      this.pageLength = this.restaurantData.size % 12 === 0 ?
+          this.restaurantData.size / 12 : this.restaurantData.size / 12 + 1
+    }
+  }
 }
 </script>
 
