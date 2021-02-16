@@ -19,7 +19,6 @@
 4. Open your browser and go to [http://localhost:8080](http://localhost:8080).
 
 ## Feature List
-- **Implement material design style using [Vuetify](https://vuetifyjs.com/en/).**
 - **Homepage**
     - Displays the list of the restaurants getting from `localhost:3000/api/list`.
     - A search bar which allows users to search for a specific restaurant(s) whose name contains the search content.
@@ -28,6 +27,7 @@
 - **Detailed page of each restaurant**
     - Displays more information about the selected restaurant from `localhost:3000/api/restaurant/{id}`.
     - A [Here Map](https://developer.here.com/develop/javascript-api) displays the location of the restaurant marked by a red location icon.
+- **Implement material design style and responsive web design using [Vuetify](https://vuetifyjs.com/en/).**
 
 ##### The screenshot of the homepage:
 ![image](./screenshots/homepage.jpg)
