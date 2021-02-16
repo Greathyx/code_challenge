@@ -4,37 +4,81 @@
 
     <v-row style="margin-top: 30px; padding: 0 20px">
       <v-col cols="6" sm="12" md="6" class="my-col">
-        <div style="width: 80%">
+        <!-- name -->
+        <div class="my-align">
           <h1 class="display-2 font-weight-regular">{{ this.restaurant_detail.name }}</h1>
-          <v-row align="center" class="mx-0" style="margin-top: 10px">
-            <v-rating
-                :value="this.restaurant_detail.rating"
-                color="amber"
-                dense
-                half-increments
-                readonly
-                size="14"
-            ></v-rating>
-            <div class="grey--text ml-4">{{ this.restaurant_detail.rating }}</div>
-          </v-row>
+          <v-avatar tile size="36" style="margin-left: 10px">
+            <img :src="this.restaurant_detail.icon" alt="icon">
+          </v-avatar>
+        </div>
 
-          <div style="display: flex; flex-direction: row; align-items: center; margin-top: 20px">
-            <v-icon
-                color="secondary"
-                style="margin-left: -4px; margin-right: 4px"
-            >
-              mdi-map-marker-outline
+        <!-- rating -->
+        <v-row align="center" class="mx-0" style="margin-top: 10px">
+          <v-rating
+              :value="this.restaurant_detail.rating"
+              color="amber"
+              dense
+              half-increments
+              readonly
+              size="14"
+          ></v-rating>
+          <div class="grey--text ml-4">{{ this.restaurant_detail.rating }}</div>
+        </v-row>
+
+        <!-- location -->
+        <div class="my-align" style="height: 35px; margin-top: 20px">
+          <v-icon color="secondary" class="align-icon">
+            mdi-map-marker-outline
+          </v-icon>
+          <a :href="this.restaurant_detail.google_maps_url"
+             target="_blank"
+             class="my-link"
+          >
+            <span class="body-1">{{ this.restaurant_detail.address }}</span>
+            <v-icon style="vertical-align: baseline; margin-left: 2px"
+                    small color="secondary">
+              mdi-open-in-new
             </v-icon>
-            <a :href="this.restaurant_detail.google_maps_url"
-               target="_blank"
-               class="my-link"
-            >
-              <span class="body-1">{{ this.restaurant_detail.address }}</span>
-              <v-icon style="vertical-align: baseline; margin-left: 2px"
-                      small color="secondary">
-                mdi-open-in-new
-              </v-icon>
-            </a>
+          </a>
+        </div>
+
+        <!-- phone number -->
+        <div class="my-align" style="height: 35px">
+          <v-icon color="secondary" class="align-icon2" size="21">
+            mdi-phone-outline
+          </v-icon>
+          <span class="body-1">{{ this.restaurant_detail.phone_number }}</span>
+        </div>
+
+        <!-- website -->
+        <div class="my-align" style="height: 35px">
+          <v-icon color="secondary" class="align-icon2" size="20">
+            mdi-earth
+          </v-icon>
+          <a :href="this.restaurant_detail.website"
+             target="_blank"
+             class="my-link"
+          >
+            <span class="body-1">{{ this.restaurant_detail.website }}</span>
+            <v-icon style="vertical-align: baseline; margin-left: 2px"
+                    small color="secondary">
+              mdi-open-in-new
+            </v-icon>
+          </a>
+        </div>
+
+        <!-- opening hours -->
+        <div class="my-align" style="height: 35px">
+          <v-icon color="secondary" class="align-icon2" size="21">
+            mdi-calendar-outline
+          </v-icon>
+          <span class="body-1">Opening hours</span>
+        </div>
+        <div style="margin-left: 27px;">
+          <div v-for="item in this.restaurant_detail.opening_hours"
+               v-bind:key="item.id" class="body-2" style="margin: 6px 0"
+          >
+            {{ item }}
           </div>
         </div>
       </v-col>
@@ -118,5 +162,21 @@ export default {
 
 .my-link:hover {
   text-decoration: underline;
+}
+
+.my-align {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.align-icon {
+  margin-left: -4px;
+  margin-right: 8px
+}
+
+.align-icon2 {
+  margin-left: -2px;
+  margin-right: 8px
 }
 </style>

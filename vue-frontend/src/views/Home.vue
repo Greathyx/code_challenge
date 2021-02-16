@@ -49,7 +49,7 @@
 
         <v-col v-for="item in restaurantData.slice((page - 1) * 12, page * 12)"
                v-bind:key="item.id" cols="3" md="3" sm="6"
-               style="height: 440px; margin-top: -30px">
+               style="height: 420px; margin-top: -30px">
           <v-card
               class="mx-auto my-12"
               max-width="374"
@@ -63,7 +63,7 @@
             </v-card-title>
 
             <v-card-text>
-              <v-row align="center" class="mx-0">
+              <v-row align="center" class="mx-0" style="margin-bottom: 10px">
                 <v-rating
                     :value="item.rating"
                     color="amber"
@@ -72,12 +72,9 @@
                     readonly
                     size="14"
                 ></v-rating>
-
                 <div class="grey--text ml-4">{{ item.rating }}</div>
               </v-row>
-
-              <div class="my-4 subtitle-1">$ • Italian, Cafe</div>
-<!--              <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>-->
+<!--              <div class="my-4 subtitle-1">$ • Italian, Cafe</div>-->
             </v-card-text>
           </v-card>
         </v-col>
