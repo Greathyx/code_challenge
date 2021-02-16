@@ -114,7 +114,7 @@
         :timeout="2000"
         light top
     >
-      Sorry, no matched result is found T^T
+      Oops! No matched result is found T^T
     </v-snackbar>
   </div>
 </template>
@@ -201,7 +201,7 @@ export default {
     },
 
     onSearch() {
-      if (this.search_content === '')
+      if (this.search_content === null || this.search_content === '')
         this.snackbar = true;
       else {
         let matchedRestaurant = [];
