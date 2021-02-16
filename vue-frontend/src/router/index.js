@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import RestaurantDetail from "@/views/RestaurantDetail";
 
 Vue.use(VueRouter)
 
@@ -9,6 +10,12 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/restaurant_detail',
+    name: 'RestaurantDetail',
+    component: RestaurantDetail,
+    props: (route) => ({ query: route.query.id })
   },
   {
     path: '/about',

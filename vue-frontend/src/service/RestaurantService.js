@@ -8,8 +8,8 @@ export default {
         return res.data;
     },
 
-    async getRestaurantDetail() {
-        let res = await axios.get(host + "/api/restaurant/:id");
+    async getRestaurantDetail(id) {
+        let res = await axios.get(host + "/api/restaurant/" + id);
         return res.data;
     }
 }

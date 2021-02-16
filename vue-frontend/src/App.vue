@@ -41,7 +41,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #tab a {
   text-decoration: none;
   color: white;

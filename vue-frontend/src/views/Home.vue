@@ -18,7 +18,7 @@
     <div class="my-container">
       <v-row style="margin: 20px 60px 40px 60px">
         <v-col class="d-flex" cols="12" style="display: flex; flex-direction: row; align-items: center">
-          <h3 class="font-weight-medium">Sort by: </h3>
+          <h3 class="font-weight-medium">Sorted by: </h3>
 
           <v-btn
               small
@@ -53,6 +53,8 @@
           <v-card
               class="mx-auto my-12"
               max-width="374"
+              hover
+              v-on:click="openDetail(item.id)"
           >
             <v-img height="250" :src="item.photo"></v-img>
 
@@ -95,11 +97,8 @@
 // @ is an alias to /src
 import RestaurantService from "@/service/RestaurantService";
 
-
 export default {
   name: 'Home',
-
-  components: {},
 
   created() {
     Promise.resolve(RestaurantService.getRestaurantList()).then((result) => {
@@ -150,12 +149,16 @@ export default {
       // update the page length
       this.pageLength = this.restaurantData.size % 12 === 0 ?
           this.restaurantData.size / 12 : this.restaurantData.size / 12 + 1
+    },
+
+    openDetail(restaurant_id) {
+      this.$router.push({path: '/restaurant_detail', query: {id: restaurant_id}});
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .my-container {
   width: 100%;
   padding: 0;
