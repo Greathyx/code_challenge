@@ -133,13 +133,23 @@ export default {
       const mapContainer = this.$refs.hereMap;
       const H = window.H;
       // Obtain the default map types from the platform object
-      var maptypes = this.platform.createDefaultLayers();
+      const maptypes = this.platform.createDefaultLayers();
 
       // Instantiate (and display) a map object:
-      var map = new H.Map(mapContainer, maptypes.vector.normal.map, {
+      const map = new H.Map(mapContainer, maptypes.vector.normal.map, {
         zoom: 15,
         center: this.center
       });
+
+      const LocationOfMarker = this.center;
+      const pngIcon = new H.map.Icon("https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png",
+          { size: { w: 36, h: 36 } });
+      // Create a marker using the previously instantiated icon:
+      const marker = new H.map.Marker(LocationOfMarker, { icon: pngIcon });
+      // Add the marker to the map:
+      map.addObject(marker);
+      //Show the marker in the center of the map
+      map.setCenter(LocationOfMarker)
 
       addEventListener("resize", () => map.getViewPort().resize());
       new H.mapevents.Behavior(new H.mapevents.MapEvents(map));  // add behavior control
